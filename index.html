@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 800px;
             margin: 40px auto;
             padding: 20px;
             background-color: #f0f0f0;
@@ -43,30 +43,80 @@
             border-radius: 4px;
             background-color: #f8f9fa;
         }
+        .reference-table {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .letter-value {
+            background-color: #f8f9fa;
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Word Number Calculator</h1>
-        <p>Enter a word to calculate its number value based on letter positions (A=1, B=2, etc.)</p>
+        <p>Enter a word to calculate its number value based on the letter values shown below.</p>
         
         <input type="text" id="wordInput" placeholder="Enter a word">
         <button onclick="calculateWordNumber()">Calculate</button>
         
         <div id="result"></div>
+
+        <h3>Letter Values Reference:</h3>
+        <div class="reference-table">
+            <div class="letter-value">A = 1</div>
+            <div class="letter-value">B = 2</div>
+            <div class="letter-value">C = 3</div>
+            <div class="letter-value">D = 4</div>
+            <div class="letter-value">E = 5</div>
+            <div class="letter-value">F = 8</div>
+            <div class="letter-value">G = 3</div>
+            <div class="letter-value">H = 5</div>
+            <div class="letter-value">I = 1</div>
+            <div class="letter-value">J = 1</div>
+            <div class="letter-value">K = 2</div>
+            <div class="letter-value">L = 3</div>
+            <div class="letter-value">M = 4</div>
+            <div class="letter-value">N = 5</div>
+            <div class="letter-value">O = 7</div>
+            <div class="letter-value">P = 8</div>
+            <div class="letter-value">Q = 1</div>
+            <div class="letter-value">R = 2</div>
+            <div class="letter-value">S = 3</div>
+            <div class="letter-value">T = 4</div>
+            <div class="letter-value">U = 6</div>
+            <div class="letter-value">V = 6</div>
+            <div class="letter-value">W = 6</div>
+            <div class="letter-value">X = 5</div>
+            <div class="letter-value">Y = 1</div>
+            <div class="letter-value">Z = 7</div>
+        </div>
     </div>
 
     <script>
+        const letterValues = {
+            'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 8, 'G': 3, 'H': 5, 'I': 1,
+            'J': 1, 'K': 2, 'L': 3, 'M': 4, 'N': 5, 'O': 7, 'P': 8, 'Q': 1, 'R': 2,
+            'S': 3, 'T': 4, 'U': 6, 'V': 6, 'W': 6, 'X': 5, 'Y': 1, 'Z': 7
+        };
+
         function calculateWordNumber() {
             const word = document.getElementById('wordInput').value.toUpperCase();
             let total = 0;
             let breakdown = '';
 
             for (let i = 0; i < word.length; i++) {
-                const charCode = word.charCodeAt(i) - 64; // A = 1, B = 2, etc.
-                if (charCode > 0 && charCode <= 26) {
-                    total += charCode;
-                    breakdown += `${word[i]}=${charCode} `;
+                const letter = word[i];
+                if (letterValues.hasOwnProperty(letter)) {
+                    const value = letterValues[letter];
+                    total += value;
+                    breakdown += `${letter}=${value} `;
                 }
             }
 
