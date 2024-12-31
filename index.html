@@ -106,6 +106,18 @@
             'S': 3, 'T': 4, 'U': 6, 'V': 6, 'W': 6, 'X': 5, 'Y': 1, 'Z': 7
         };
 
+        function getSingleDigit(num) {
+            while (num > 9) {
+                let sum = 0;
+                while (num > 0) {
+                    sum += num % 10;
+                    num = Math.floor(num / 10);
+                }
+                num = sum;
+            }
+            return num;
+        }
+
         function calculateWordNumber() {
             const word = document.getElementById('wordInput').value.toUpperCase();
             let total = 0;
@@ -120,12 +132,15 @@
                 }
             }
 
+            const finalDigit = getSingleDigit(total);
+
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <h3>Results:</h3>
                 <p>Word: ${word}</p>
                 <p>Letter Values: ${breakdown}</p>
-                <p>Total Value: ${total}</p>
+                <p>Initial Sum: ${total}</p>
+                <p>Final Single Digit: ${finalDigit}</p>
             `;
         }
     </script>
