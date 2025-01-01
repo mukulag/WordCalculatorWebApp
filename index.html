@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universal Number Calculator</title>
     <style>
+        /* Previous styles remain the same */
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -26,17 +27,31 @@
             border-radius: 4px;
             font-size: 16px;
         }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
         button {
-            background-color: #007bff;
-            color: white;
-            border: none;
             padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            border: none;
         }
-        button:hover {
+        .primary-button {
+            background-color: #007bff;
+            color: white;
+        }
+        .primary-button:hover {
             background-color: #0056b3;
+        }
+        .secondary-button {
+            background-color: #6c757d;
+            color: white;
+        }
+        .secondary-button:hover {
+            background-color: #5a6268;
         }
         #result {
             margin-top: 20px;
@@ -71,13 +86,19 @@
         <h1>Universal Number Calculator</h1>
         <p>Enter any combination of letters and numbers. Letters will use the reference values below, numbers will use their face value.</p>
         
-        <input type="text" id="input" placeholder="Enter letters and/or numbers (e.g., ABC123)">
-        <button onclick="calculate()">Calculate</button>
+        <form id="calculatorForm" onsubmit="calculate(); return false;">
+            <input type="text" id="input" placeholder="Enter letters and/or numbers (e.g., ABC123)" autofocus>
+            <div class="button-group">
+                <button type="submit" class="primary-button">Calculate</button>
+                <button type="button" class="secondary-button" onclick="clearCalculator()">Clear</button>
+            </div>
+        </form>
         
         <div id="result"></div>
 
         <h3>Letter Values Reference:</h3>
         <div class="reference-table">
+            <!-- Previous letter values remain the same -->
             <div class="letter-value">A = 1</div>
             <div class="letter-value">B = 2</div>
             <div class="letter-value">C = 3</div>
@@ -164,6 +185,12 @@
                           <p>Final Single Digit: ${finalDigit}</p>`;
 
             resultDiv.innerHTML = resultHTML;
+        }
+
+        function clearCalculator() {
+            document.getElementById('input').value = '';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('input').focus();
         }
     </script>
 </body>
