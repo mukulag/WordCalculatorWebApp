@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word and Number Calculator</title>
+    <title>Universal Number Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,12 +18,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        input[type="text"], input[type="number"] {
+        input[type="text"] {
             width: 100%;
             padding: 8px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 16px;
         }
         button {
             background-color: #007bff;
@@ -32,12 +33,12 @@
             padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
-            margin: 5px;
+            font-size: 16px;
         }
         button:hover {
             background-color: #0056b3;
         }
-        .result {
+        #result {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ddd;
@@ -57,81 +58,52 @@
             border-radius: 4px;
             border: 1px solid #ddd;
         }
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 4px 4px 0 0;
-            margin-right: 5px;
-        }
-        .tab.active {
-            background-color: #007bff;
-            color: white;
-        }
-        .calculator {
-            display: none;
-        }
-        .calculator.active {
-            display: block;
+        .breakdown {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Number Calculator</h1>
+        <h1>Universal Number Calculator</h1>
+        <p>Enter any combination of letters and numbers. Letters will use the reference values below, numbers will use their face value.</p>
         
-        <div class="tabs">
-            <button class="tab active" onclick="showCalculator('word')">Word Calculator</button>
-            <button class="tab" onclick="showCalculator('number')">Number Calculator</button>
-        </div>
+        <input type="text" id="input" placeholder="Enter letters and/or numbers (e.g., ABC123)">
+        <button onclick="calculate()">Calculate</button>
+        
+        <div id="result"></div>
 
-        <div id="wordCalculator" class="calculator active">
-            <p>Enter a word to calculate its number value based on the letter values shown below.</p>
-            <input type="text" id="wordInput" placeholder="Enter a word">
-            <button onclick="calculateWordNumber()">Calculate Word Value</button>
-            <div id="wordResult" class="result"></div>
-
-            <h3>Letter Values Reference:</h3>
-            <div class="reference-table">
-                <div class="letter-value">A = 1</div>
-                <div class="letter-value">B = 2</div>
-                <div class="letter-value">C = 3</div>
-                <div class="letter-value">D = 4</div>
-                <div class="letter-value">E = 5</div>
-                <div class="letter-value">F = 8</div>
-                <div class="letter-value">G = 3</div>
-                <div class="letter-value">H = 5</div>
-                <div class="letter-value">I = 1</div>
-                <div class="letter-value">J = 1</div>
-                <div class="letter-value">K = 2</div>
-                <div class="letter-value">L = 3</div>
-                <div class="letter-value">M = 4</div>
-                <div class="letter-value">N = 5</div>
-                <div class="letter-value">O = 7</div>
-                <div class="letter-value">P = 8</div>
-                <div class="letter-value">Q = 1</div>
-                <div class="letter-value">R = 2</div>
-                <div class="letter-value">S = 3</div>
-                <div class="letter-value">T = 4</div>
-                <div class="letter-value">U = 6</div>
-                <div class="letter-value">V = 6</div>
-                <div class="letter-value">W = 6</div>
-                <div class="letter-value">X = 5</div>
-                <div class="letter-value">Y = 1</div>
-                <div class="letter-value">Z = 7</div>
-            </div>
-        </div>
-
-        <div id="numberCalculator" class="calculator">
-            <p>Enter a number to calculate its value (each digit contributes its face value).</p>
-            <input type="number" id="numberInput" placeholder="Enter a number">
-            <button onclick="calculateNumberValue()">Calculate Number Value</button>
-            <div id="numberResult" class="result"></div>
+        <h3>Letter Values Reference:</h3>
+        <div class="reference-table">
+            <div class="letter-value">A = 1</div>
+            <div class="letter-value">B = 2</div>
+            <div class="letter-value">C = 3</div>
+            <div class="letter-value">D = 4</div>
+            <div class="letter-value">E = 5</div>
+            <div class="letter-value">F = 8</div>
+            <div class="letter-value">G = 3</div>
+            <div class="letter-value">H = 5</div>
+            <div class="letter-value">I = 1</div>
+            <div class="letter-value">J = 1</div>
+            <div class="letter-value">K = 2</div>
+            <div class="letter-value">L = 3</div>
+            <div class="letter-value">M = 4</div>
+            <div class="letter-value">N = 5</div>
+            <div class="letter-value">O = 7</div>
+            <div class="letter-value">P = 8</div>
+            <div class="letter-value">Q = 1</div>
+            <div class="letter-value">R = 2</div>
+            <div class="letter-value">S = 3</div>
+            <div class="letter-value">T = 4</div>
+            <div class="letter-value">U = 6</div>
+            <div class="letter-value">V = 6</div>
+            <div class="letter-value">W = 6</div>
+            <div class="letter-value">X = 5</div>
+            <div class="letter-value">Y = 1</div>
+            <div class="letter-value">Z = 7</div>
         </div>
     </div>
 
@@ -154,72 +126,44 @@
             return num;
         }
 
-        function calculateWordNumber() {
-            const word = document.getElementById('wordInput').value.toUpperCase();
+        function calculate() {
+            const input = document.getElementById('input').value.toUpperCase();
             let total = 0;
-            let breakdown = '';
+            let letterBreakdown = '';
+            let numberBreakdown = '';
 
-            for (let i = 0; i < word.length; i++) {
-                const letter = word[i];
-                if (letterValues.hasOwnProperty(letter)) {
-                    const value = letterValues[letter];
+            for (let i = 0; i < input.length; i++) {
+                const char = input[i];
+                if (letterValues.hasOwnProperty(char)) {
+                    // Handle letters
+                    const value = letterValues[char];
                     total += value;
-                    breakdown += `${letter}=${value} `;
+                    letterBreakdown += `${char}=${value} `;
+                } else if (!isNaN(parseInt(char))) {
+                    // Handle numbers
+                    const value = parseInt(char);
+                    total += value;
+                    numberBreakdown += `${char}=${value} `;
                 }
             }
 
             const finalDigit = getSingleDigit(total);
 
-            const resultDiv = document.getElementById('wordResult');
-            resultDiv.innerHTML = `
-                <h3>Results:</h3>
-                <p>Word: ${word}</p>
-                <p>Letter Values: ${breakdown}</p>
-                <p>Initial Sum: ${total}</p>
-                <p>Final Single Digit: ${finalDigit}</p>
-            `;
-        }
-
-        function calculateNumberValue() {
-            const number = document.getElementById('numberInput').value;
-            let breakdown = '';
-            let total = 0;
-
-            // Calculate sum of digits
-            for (let digit of number) {
-                const value = parseInt(digit);
-                total += value;
-                breakdown += `${digit}=${value} `;
+            const resultDiv = document.getElementById('result');
+            let resultHTML = `<h3>Results:</h3>
+                            <p>Input: ${input}</p>`;
+            
+            if (letterBreakdown) {
+                resultHTML += `<p>Letter Values: ${letterBreakdown}</p>`;
             }
-
-            const finalDigit = getSingleDigit(total);
-
-            const resultDiv = document.getElementById('numberResult');
-            resultDiv.innerHTML = `
-                <h3>Results:</h3>
-                <p>Number: ${number}</p>
-                <p>Digit Values: ${breakdown}</p>
-                <p>Initial Sum: ${total}</p>
-                <p>Final Single Digit: ${finalDigit}</p>
-            `;
-        }
-
-        function showCalculator(type) {
-            // Update tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Show selected calculator
-            document.querySelectorAll('.calculator').forEach(calc => {
-                calc.classList.remove('active');
-            });
-            if (type === 'word') {
-                document.getElementById('wordCalculator').classList.add('active');
-            } else {
-                document.getElementById('numberCalculator').classList.add('active');
+            if (numberBreakdown) {
+                resultHTML += `<p>Number Values: ${numberBreakdown}</p>`;
             }
+            
+            resultHTML += `<p>Initial Sum: ${total}</p>
+                          <p>Final Single Digit: ${finalDigit}</p>`;
+
+            resultDiv.innerHTML = resultHTML;
         }
     </script>
 </body>
